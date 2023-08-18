@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { Inserir } from '../repository/usuarioRepository.js';
+import { Inserir, BuscarAll, BuscarNome } from '../repository/usuarioRepository.js';
 
 const server = Router();
 
@@ -18,7 +18,33 @@ server.post('/contato', async (req, resp) => {
             erro: "Ocorreu um erro!"
         })
     }
-})
+});
+
+
+server.get('/contato', async (req,resp) => {
+    try {
+        const resposta = await BuscarAll();
+        resp.send(resposta);
+    }
+    catch (err) {
+        resp.status(400).send({
+            erro: "Ocorreu um erro!"
+        })
+    }
+});
+
+server.get('/contato/busca?nome=', async (req,resp) => {
+    try {
+        const {nome} = req.query;
+        const resposta = await BuscarNome(nome);
+        resp.send(resposta);
+    }
+    catch (err) {
+        resp.status(400).send({
+            erro: "Ocorreu um erro!"
+        })
+    }
+});
 
 
 export default server;
