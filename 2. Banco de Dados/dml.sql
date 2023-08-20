@@ -43,13 +43,15 @@ FROM tb_agenda
 WHERE dt_cadastro = true;
 
 -- BUSCA CONTATOS CADASTRADOS EM UM INTERVALO
-SELECT 
+SELECT
+id_agenda Id_Contato,
 nm_contato Nome_Contato,
 ds_telefone Telefone,
 ds_email Email,
 bt_favorito Favoritado,
 dt_cadastro Data_Cadastro
-FROM tb_agenda;
+FROM tb_agenda
+WHERE dt_cadastro BETWEEN ? AND ?;
 
 -- ALTERA UM CONTATO
 UPDATE tb_agenda
