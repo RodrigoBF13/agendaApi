@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { Inserir, BuscarAll, BuscarNome, Deletar, Modificar, Favoritados } from '../repository/usuarioRepository.js';
+import { Inserir, BuscarAll, BuscarNome, Deletar, Modificar, Favoritados, BuscarCadastro } from '../repository/usuarioRepository.js';
 
 const server = Router();
 
@@ -36,6 +36,19 @@ server.get('/contato', async (req,resp) => {
 server.get('/contato/favoritos', async (req,resp) => {
     try {
         const resposta = await Favoritados();
+        resp.send(resposta);
+    }
+    catch (err) {
+        resp.status(400).send({
+            erro: "Ocorreu um erro!"
+        })
+    }
+});
+
+server.get('/contato/cadastro', async (req,resp) => {
+    try {
+        const {data1, data2} = req.query
+        const resposta = await BuscarCadastro(data1, data2);
         resp.send(resposta);
     }
     catch (err) {

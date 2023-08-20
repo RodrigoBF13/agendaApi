@@ -23,6 +23,22 @@ export async function BuscarAll() {
     return resp;
 };
 
+export async function BuscarCadastro(dt1, dt2) {
+    const comando = `
+    SELECT
+    id_agenda Id_Contato,
+    nm_contato Nome_Contato,
+    ds_telefone Telefone,
+    ds_email Email,
+    bt_favorito Favoritado,
+    dt_cadastro Data_Cadastro
+    FROM tb_agenda
+    WHERE dt_cadastro BETWEEN ? AND ?`
+
+    const [resp] = await con.query(comando, [dt1, dt2]);
+    return resp;
+};
+
 export async function Favoritados() {
     const comando = `
     SELECT 
